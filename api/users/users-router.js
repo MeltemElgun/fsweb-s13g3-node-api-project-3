@@ -53,22 +53,17 @@ router.put(
   }
 );
 
-router.delete(
-  "/:id",
-  mw.validateUserId,
-
-  async (req, res, next) => {
-    // SON SİLİNEN USER NESNESİ DÖNDÜRÜN
-    // user id yi doğrulayan bir ara yazılım gereklidir.
-    try {
-      await userModel.remove(req.params.id);
-      res.json(req.user);
-      next();
-    } catch (error) {
-      next(error);
-    }
+router.delete("/:id", mw.validateUserId, async (req, res, next) => {
+  // SON SİLİNEN USER NESNESİ DÖNDÜRÜN
+  // user id yi doğrulayan bir ara yazılım gereklidir.
+  try {
+    await userModel.remove(req.params.id);
+    res.json(req.user);
+    next();
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 router.get("/:id/posts", mw.validateUserId, async (req, res, next) => {
   // USER POSTLARINI İÇEREN BİR DİZİ DÖNDÜRÜN
